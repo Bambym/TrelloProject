@@ -1,6 +1,5 @@
 import HomeContent from '../homeContent/HomeContent'
 import ContactContent from'../homeContact/ContactContent'
-
 export const TabsRoutes =[
     {
         label:'Accueil',

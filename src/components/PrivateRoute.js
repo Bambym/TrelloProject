@@ -1,39 +1,39 @@
-import React, {useEffect,useState} from 'react';
-import { useNavigate, useParams } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import React, {Fragment, useEffect, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+    getAuth,
+    
+    onAuthStateChanged,
+  
+  } from "firebase/auth";
 import LoadingAnimation from './LoadingAnimation';
-
+import { useParams } from 'react-router-dom';
 const PrivateRoute = ({element}) => {
-
+    
     const auth = getAuth();
     let navigate = useNavigate()
-
-    const [authorized, setAuthorized] = useState(false);
-
-    let params = useParams() ;
-
-    useEffect( () => {
-
-       authorized === false && onAuthStateChanged(auth,(user)=>{
     
-          if(user){
-
-            if(user.uid === params.uid) {
-                setAuthorized(true)
-            } else {
-                navigate(`/dashboard/${user.uid}`)
-                setAuthorized(true)
-            }
-
-          } else {
-              navigate("/login")
+    let {uid} = useParams()
+    const [ authorized, setAuthorized]=useState(false)
+    useEffect(()=>{
+        authorized=== false && onAuthStateChanged(auth, (user) => {
+          if (user) {
+           
+                if(user.uid === uid){
+                    setAuthorized(true)
+                }else{
+                    navigate(`/admin/${user.uid}`)
+                    setAuthorized(true)
+                }
+           
+           
+          }else{
+            navigate("/login")
           }
-    
-        })
-    
-      },[authorized])
-
-  return authorized ? element : <LoadingAnimation type='linear' isLoading={!authorized}/> ;
+        });
+      },[authorized]) // equivalent d'un componentDidMount
+    return authorized ? element : <LoadingAnimation isLoading={!authorized}/>
+;
 };
 
 export default PrivateRoute;

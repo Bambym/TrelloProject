@@ -1,0 +1,42 @@
+.toolbar-dash {
+  justify-content: space-between;
+}
+
+.select {
+  margin-right: 20%;
+}
+.buttonHeaderDashBoard {
+  display: flex;
+}
+
+.dashboardEspace {
+  display: flex;
+  border: 2px solid light-grey;
+  border-radius: 15px;
+  background-color: #f1f8ff;
+  padding: 10px 20px;
+}
+.button-espace {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.switchTheme {
+  padding-top: 13px;
+}
+.add-espace {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card-action-add-espace{
+    display: flex;
+}
+
+.card-media-add-espace {
+    padding-top: 50px;
+    display: flex;
+}
+.spaceCreation{
+    margin:auto;
+}
