@@ -4,8 +4,6 @@ import NavBar from './sideBar/NavBar';
 import { TabsRoutes } from './sideBar/TabsConfig'
 import { Tab, Grid } from '@mui/material'
 import TabPanel from './sideBar/TabPanel';
-import Hook from './hooks/Hook'
-import Hook2 from './hooks/Hook2'
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
