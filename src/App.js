@@ -10,8 +10,10 @@ import SignIn from './components/Authentification/signIn/SignIn.js'
 import SignUp from './components/Authentification/Signup/SignUp.js'
 import Dashboard from './components/dashboard/Dashboard.js';
 import { initializeApp } from "firebase/app";
-import { SpaceCreation } from './components/dashboard/SpaceCreation';
 import PrivateRoute from './components/PrivateRoute';
+import DashboardTable from './components/dashboard/spaceTable/DashboardTable';
+import DashboardColumn from './components/dashboard/Table/DashboardColumn.js';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCGRUqj42db9BeNPPOxKihY73pT93d0r9k",
@@ -31,7 +33,9 @@ function App() {
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/login" element={<SignIn/>} />
         <Route path="/admin/:uid" element={<PrivateRoute element={<Dashboard/>} />}/>
-        <Route path="/creation" element={<SpaceCreation/>} />
+        <Route path="/admin/:uid/espace/:spaceId" element={<PrivateRoute element={<DashboardTable/>} />}/>
+        <Route path="/admin/:uid/espace/:spaceId/table/:tableId" element={<PrivateRoute element={<DashboardColumn/>} />}/>
+        
 
       </Routes>
     </Router>

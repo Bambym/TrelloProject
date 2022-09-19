@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import HeaderDashboard from "./HeaderDashboard";
-import NavBar from "../WebSite/sideBar/NavBar";
+import HeaderDashboardTable from "./HeaderDashboardTable";
+import NavBar from "../../WebSite/sideBar/NavBar";
 import { Tab, Grid, Typography } from "@mui/material";
-import TabPanel from "../WebSite/sideBar/TabPanel";
+import TabPanel from "../../WebSite/sideBar/TabPanel";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -12,16 +12,19 @@ import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import { TabsRoutesDashboard } from "./tabsConfigDashboard";
-import "../../css/style-dashboard.css"
+import { TabsRoutesDashboardTable } from "../tabsConfigDashboard";
+import "../../../css/style-dashboard.css"
 import PersonIcon from '@mui/icons-material/Person';
 import { ThemeProvider } from "@mui/styles";
+import { Link, useParams } from "react-router-dom";
 const drawerWidth = 240;
 
 
-const Dashboard = ({window}) => {
+const DashboardTable = ({window}) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState(0);
+
+  const params = useParams()
 
   const handleChange = (event, id) => {
     setActiveTab(id);
@@ -40,17 +43,19 @@ const Dashboard = ({window}) => {
       
       <NavBar activeTab={activeTab} handleChange={handleChange}>
       
-        {TabsRoutesDashboard.map((tab, index) => (
+        {TabsRoutesDashboardTable().map((tab, index) => (
           <Tab
             sx={{ width: { sm: drawerWidth },mt: 10,color: "white"}}
             icon={tab.icon}
             iconPosition="start"
-            label={tab.label}
+            label={tab.label === 'Espaces' ? <Link to={`/admin/${params.uid}`} style={{textDecoration: "inherit",color:"white"}}><Box >Espaces</Box></Link>: tab.label}
             id={`vertical-tab-${index}`}
             aria-controls={`vertical-tabpanel-${index}`}
-            
+
           />
-        
+         
+            
+         
         ))}
       </NavBar>
     </div>
@@ -70,7 +75,7 @@ const Dashboard = ({window}) => {
           zIndex: (theme) => theme.zIndex.drawer + 1,
         }}
       >
-        <HeaderDashboard>
+        <HeaderDashboardTable>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -80,9 +85,22 @@ const Dashboard = ({window}) => {
           >
             <MenuIcon />
           </IconButton>
-        </HeaderDashboard>
+        </HeaderDashboardTable>
 
-       
+        {/* <Toolbar>
+                      <IconButton
+                          color="inherit"
+                          aria-label="open drawer"
+                          edge="start"
+                          onClick={handleDrawerToggle}
+                          sx={{ mr: 2, display: { sm: 'none' } }}
+                      >
+                          <h1>Menu icon</h1>
+                      </IconButton>
+                      <Typography variant="h2" noWrap component="div">
+                          Trello Clone
+                      </Typography>
+                  </Toolbar> */}
       </AppBar>
       <Box
         component="nav"
@@ -149,7 +167,7 @@ const Dashboard = ({window}) => {
 
           {/* contenu des onglets */}
           <div>
-            {TabsRoutesDashboard.map((tab, index) => (
+            {TabsRoutesDashboardTable().map((tab, index) => (
               <TabPanel activeTab={activeTab} index={index} >
                 {tab.component}
               </TabPanel>
@@ -161,4 +179,4 @@ const Dashboard = ({window}) => {
     
   )
 }
-export default Dashboard;
+export default DashboardTable;

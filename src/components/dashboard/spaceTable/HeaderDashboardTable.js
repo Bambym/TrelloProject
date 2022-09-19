@@ -18,8 +18,8 @@ import {
 } from "@mui/material";
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import MessageIcon from '@mui/icons-material/Message';
-import "../../css/style-dashboard.css"
-import SignOut from "../Authentification/SignOut";
+import "../../../css/style-dashboard.css"
+import SignOut from "../../Authentification/SignOut";
 
 const linkStyle = {
   margin: "1rem",
@@ -39,7 +39,7 @@ const useStyles = makeStyles({
 const categoryHeader = ['Espace', 'Recents', 'Favoris','Modeles'];
 
 
-const HeaderDashboard = ({ children }) => {
+const HeaderDashboardTable = ({ children }) => {
   const classes = useStyles();
 
   const [age, setAge] = React.useState("");
@@ -111,4 +111,4 @@ const HeaderDashboard = ({ children }) => {
   );
 };
 
-export default HeaderDashboard;
+export default HeaderDashboardTable;

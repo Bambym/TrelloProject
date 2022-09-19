@@ -12,7 +12,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import Tache from "./Tache";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import CircularProgress from "@mui/material/CircularProgress";
 import LoadingAnimation from "../../LoadingAnimation";
@@ -45,26 +45,48 @@ const SignUp = () => {
 
   const [signUpError,setSignUpError] = useState('');
 
-  const handleSubmit = ({email,password}) => {
+  const navigate = useNavigate()
 
-        setIsLoading(true)
+  const handleSubmit = async ({email,password}) => {
 
-        const auth = getAuth();
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                console.log(userCredential);
-                //setTimeout(() => {
-                    setIsLoading(false)
-                //}, 2000);
-                
-            })
-            .catch((error) => {
-                const code = error.message;
+    try {
+      setIsLoading(true)
+
+      const auth = getAuth();
+      const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
+      let user= 
+      {
+        _id:userCredentials.user.uid,
+        spaceWork:[]
+      }
+      console.log(user._id)
+      
+      let myHeaders= new Headers({"Content-Type":"application/json"})
+      const initConfig = {
+        method:"POST",
+        headers:myHeaders,
+        body:JSON.stringify(user)
+      }
+      const response = await fetch( 
+        "http://localhost:5000/users/signUp",
+        initConfig
+    )
+      const data = await response.json()
+
+      navigate(`/admin/${data._id}`)
+      
+      setIsLoading(false)
+      
+    } catch (error) {
+      const code = error.message;
                 console.log(error)
                 setIsLoading(false)
                 let messageError = code === 'auth/email-already-in-use' && "L'utilisateur existe déjà"
                 setSignUpError(messageError)
-            });
+    }
+       
+           
+  
     } 
 
 
@@ -78,6 +100,7 @@ const SignUp = () => {
     validationSchema: validationSchema,
     onSubmit: handleSubmit,
   });
+ 
 
   return (
    
